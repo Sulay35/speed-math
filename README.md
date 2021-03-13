@@ -1,2 +1,2 @@
 # speed-math
-Mental calculation game
+Mental calculation game built with python for Numworks calculator 
