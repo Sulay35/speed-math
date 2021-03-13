@@ -2,23 +2,26 @@ from math import *
 from random import *
 from time import *
 
-calculs=[1,2]    
+def S(t):
+  T=0.6
+  A=14*exp(1/T)
+  return A*exp(-t/T)+1  
   
 def play():
   score=0
   t0=monotonic()
   level=1
   add_max=5
+  calculs=0
   
   while 1:        
-    if score%5==0:
-      print("* NIVEAU ",int(score/5),"*")
+    if calculs%5==0:
+      print("* NIVEAU ",int(calculs/5),"*")
       print("________")
       add_max+=1
       t0=monotonic()
     else:
       t0=monotonic()
-    
     a=randint(2,add_max)
     b=randint(2,add_max)
     calcul=randint(1,2)
@@ -38,25 +41,19 @@ def play():
     
     dt=monotonic()-t0
     
-    if int(rep)==result and dt<=5:
-      score+=1
-      #t0=monotonic()
-      print("________",score)
-      continue      
+    if int(rep)==result:
+      score+=S(dt)
+      calculs+=1
+      print("________                  +", round(S(dt)))
+      continue
+            
     elif int(rep)!=result:
       print("MAUVAISE REPONSE")
       print("Reponse : ", result)
-      print("score : ", score)
+      print("score : ", round(score))
       if int(input("Rejouer ?"))==1:
         play()        
       else:
         break
-      
-    elif dt>5:
-      print("TEMPS ECOULE  |  SCORE : ", score)
-      if int(input("Rejouer ?"))==1:
-        play()        
-        break
-      else:
-        break        
+            
 play()
